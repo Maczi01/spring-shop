@@ -8,25 +8,19 @@ import java.time.Instant;
 
 @Log
 @RequiredArgsConstructor
-public class FakePaymentService {
+public class FakePaymentService implements PaymentService {
 
     private final PaymentIdGenerator paymentIdGenerator;
 
-    private static final String LOG_FORMAT = "A payment of %s has been initializated";
-
+    @Override
     public Payment process(PaymentRequest paymentRequest) {
-        var payment = Payment.builder()
+        return Payment.builder()
                 .id(paymentIdGenerator.getNext())
                 .money(paymentRequest.getMoney())
                 .time(Instant.now())
                 .status(PaymentStatus.STARTED)
                 .build();
-        log.info(createLogEntry(payment));
-        return payment;
     }
 
-    private String createLogEntry(Payment payment) {
-        return String.format(LOG_FORMAT, payment.getMoney());
-    }
 
 }
