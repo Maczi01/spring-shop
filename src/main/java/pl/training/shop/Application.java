@@ -10,10 +10,9 @@ public class Application {
     private static final String BASE_PAACKAGE = "pl.training.shop";
 
     public static void main(String[] args) {
-
-
+        
         try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BASE_PAACKAGE)) {
-            var paymentService = applicationContext.getBean(LoggingPaymentService.class);
+            var paymentService = applicationContext.getBean(PaymentService.class);
             var paymentRequest = PaymentRequest.builder()
                     .money(LocalMoney.of(1000))
                     .build();
